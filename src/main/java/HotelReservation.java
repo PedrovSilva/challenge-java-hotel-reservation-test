@@ -16,10 +16,11 @@ public class HotelReservation {
 	public String getCheapestHotel (String input) {
     	String[] inputSplit = input.split(" ");
     	List<String> inputList = Arrays.asList(inputSplit);
+    	String hotel = "";
     	
     	 String dOne = inputList.get(1).replaceAll("\\(.*\\),*", "");
-    	 String dTwo = inputList.get(1).replaceAll("\\(.*\\),*", "");
-    	 String dThree = inputList.get(1).replaceAll("\\(.*\\),*", "");
+    	 String dTwo = inputList.get(2).replaceAll("\\(.*\\),*", "");
+    	 String dThree = inputList.get(3).replaceAll("\\(.*\\),*", "");
     	 
     	 LocalDate dateOne = LocalDate.parse(dOne, df);
     	 LocalDate dateTwo = LocalDate.parse(dTwo, df);
@@ -30,69 +31,95 @@ public class HotelReservation {
     	 DayOfWeek dayThree = dateThree.getDayOfWeek();
     	
     	if (inputList.contains("Regular:"))
-    		regularPrice(dayOne, dayTwo, dayThree);
+    		hotel = comparationRegularPrice(dayOne, dayTwo, dayThree);
     	else
-    		rewardPrice(dayOne, dayTwo, dayThree);
+    		hotel = comparationRewardPrice(dayOne, dayTwo, dayThree);
     	
     	
-        return "Cheapest hotel name";
+        return hotel;
     }
 
-	private String rewardPrice(DayOfWeek dayOne, DayOfWeek dayTwo, DayOfWeek dayThree) {
-		if(dayOne == DayOfWeek.SATURDAY ||dayOne == DayOfWeek.SUNDAY)
-			weekendPrice(lakewood.getRewardWeekendPrice(), bridgewood.getRewardWeekendPrice(), ridgewood.getRewardWeekendPrice());
+	private String comparationRewardPrice(DayOfWeek dayOne, DayOfWeek dayTwo, DayOfWeek dayThree) {
+		int lakewoodPrice = Price(dayOne, dayTwo, dayThree, lakewood.getRewardWeekdayPrice(), lakewood.getRewardWeekendPrice());
+		int bridgePrice = Price(dayOne, dayTwo, dayThree, bridgewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekendPrice());
+		int ridgewoodPrice = Price(dayOne, dayTwo, dayThree, ridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekendPrice());
+		String hotel = "";
+		if(lakewoodPrice < bridgePrice){
+			if(lakewoodPrice == ridgewoodPrice)
+				if(lakewood.getRank()> ridgewood.getRank())
+					hotel = "Lakewood";
+				else
+					hotel = "Ridgewood";
+		}
+			
+		else if(ridgewoodPrice < bridgePrice) {
+			if(ridgewoodPrice == bridgePrice)
+				if(ridgewood.getRank() > bridgewood.getRank())
+					hotel = "Ridgewood";
+				else
+					hotel = "Bridgewood";
+		}	
+			
 		else
-			weekdayPrice(lakewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekdayPrice());
+			hotel = "Bridgewood";
 		
-		if(dayTwo == DayOfWeek.SATURDAY ||dayTwo == DayOfWeek.SUNDAY)
-			weekendPrice(lakewood.getRewardWeekendPrice(), bridgewood.getRewardWeekendPrice(), ridgewood.getRewardWeekendPrice());
-		else
-			weekdayPrice(lakewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekdayPrice());
+		return hotel;
 		
-		if(dayThree == DayOfWeek.SATURDAY ||dayThree == DayOfWeek.SUNDAY)
-			weekendPrice(lakewood.getRewardWeekendPrice(), bridgewood.getRewardWeekendPrice(), ridgewood.getRewardWeekendPrice());
-		else
-			weekdayPrice(lakewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekdayPrice());
-		
-		return null;
 	}
 
-	private String regularPrice(DayOfWeek dayOne, DayOfWeek dayTwo, DayOfWeek dayThree) {
-		
-		
-		if(dayOne == DayOfWeek.SATURDAY ||dayOne == DayOfWeek.SUNDAY)
-			weekendPrice(lakewood.getRewardWeekendPrice(), bridgewood.getRewardWeekendPrice(), ridgewood.getRewardWeekendPrice());
-		else
-			weekdayPrice(lakewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekdayPrice());
-		
-		if(dayTwo == DayOfWeek.SATURDAY ||dayTwo == DayOfWeek.SUNDAY)
-			weekendPrice(lakewood.getRewardWeekendPrice(), bridgewood.getRewardWeekendPrice(), ridgewood.getRewardWeekendPrice());
-		else
-			weekdayPrice(lakewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekdayPrice());
-		
-		if(dayThree == DayOfWeek.SATURDAY ||dayThree == DayOfWeek.SUNDAY)
-			weekendPrice(lakewood.getRewardWeekendPrice(), bridgewood.getRewardWeekendPrice(), ridgewood.getRewardWeekendPrice());
-		else
-			weekdayPrice(lakewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekdayPrice());
-		
-		return null;
-	}
-
-	private Integer weekdayPrice(Integer rewardWeekdayPrice, Integer rewardWeekdayPrice2, Integer rewardWeekdayPrice3) {
-		
 	
+
+	private String comparationRegularPrice(DayOfWeek dayOne, DayOfWeek dayTwo, DayOfWeek dayThree) {
+		int lakewoodPrice = Price(dayOne, dayTwo, dayThree, lakewood.getRegularWeekdayPrice(), lakewood.getRegularWeekendPrice());
+		int bridgePrice = Price(dayOne, dayTwo, dayThree, bridgewood.getRegularWeekdayPrice(), bridgewood.getRegularWeekendPrice());
+		int ridgewoodPrice = Price(dayOne, dayTwo, dayThree, ridgewood.getRegularWeekdayPrice(), ridgewood.getRegularWeekendPrice());
+		String hotel = "";
+		if(lakewoodPrice < bridgePrice){
+			if(lakewoodPrice == ridgewoodPrice)
+				if(lakewood.getRank()> ridgewood.getRank())
+					hotel = "Lakewood";
+				else
+					hotel = "Ridgewood";
+		}
+			
+		else if(ridgewoodPrice < bridgePrice) {
+			if(ridgewoodPrice == bridgePrice)
+				if(ridgewood.getRank() > bridgewood.getRank())
+					hotel = "Ridgewood";
+				else
+					hotel = "Bridgewood";
+		}	
+			
+		else
+			hotel = "Bridgewood";
 		
-		return rewardWeekdayPrice3;
+		return hotel;
 		
 		
+		
+	}
+	
+	private int Price(DayOfWeek dayOne, DayOfWeek dayTwo, DayOfWeek dayThree, Integer weekdayPrice,
+			Integer weekendPrice) {
+		int price = 0;
+		  
+		if(dayOne == DayOfWeek.SATURDAY || dayOne == DayOfWeek.SUNDAY)
+			  price += weekendPrice;
+		  else
+			  price += weekdayPrice;
+		
+		if(dayTwo == DayOfWeek.SATURDAY || dayTwo == DayOfWeek.SUNDAY)
+			  price += weekendPrice;
+		  else
+			  price += weekdayPrice;
+		
+		if(dayThree == DayOfWeek.SATURDAY || dayThree == DayOfWeek.SUNDAY)
+			  price += weekendPrice;
+		  else
+			  price += weekdayPrice;
+		
+		return price;
 		
 	}
 
-	private Integer weekendPrice(Integer rewardWeekendPrice, Integer rewardWeekendPrice2, Integer rewardWeekendPrice3) {
-	
-		
-		return rewardWeekendPrice3;
-		
-		
-	}
 }

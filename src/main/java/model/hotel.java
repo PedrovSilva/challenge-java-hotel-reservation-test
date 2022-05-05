@@ -4,7 +4,7 @@ public class hotel {
 	private String name;
 	private Integer rank;
 	private Integer regularWeekdayPrice;
-	private Integer regularWeekendPrince;
+	private Integer regularWeekendPrice;
 	private Integer rewardWeekdayPrice;
 	private Integer rewardWeekendPrice;
 	
@@ -14,7 +14,7 @@ public class hotel {
 		this.name = name;
 		this.rank = rank;
 		this.regularWeekdayPrice = regularWeekdayPrice;
-		this.regularWeekendPrince = regularWeekendPrince;
+		this.regularWeekendPrice = regularWeekendPrince;
 		this.rewardWeekdayPrice = rewardWeekdayPrice;
 		this.rewardWeekendPrice = rewardWeekendPrice;
 	}
@@ -31,8 +31,8 @@ public class hotel {
 		return regularWeekdayPrice;
 	}
 
-	public Integer getRegularWeekendPrince() {
-		return regularWeekendPrince;
+	public Integer getRegularWeekendPrice() {
+		return regularWeekendPrice;
 	}
 
 	public Integer getRewardWeekdayPrice() {
