@@ -44,21 +44,29 @@ public class HotelReservation {
 		int bridgePrice = Price(dayOne, dayTwo, dayThree, bridgewood.getRewardWeekdayPrice(), bridgewood.getRewardWeekendPrice());
 		int ridgewoodPrice = Price(dayOne, dayTwo, dayThree, ridgewood.getRewardWeekdayPrice(), ridgewood.getRewardWeekendPrice());
 		String hotel = "";
-		if(lakewoodPrice < bridgePrice){
-			if(lakewoodPrice == ridgewoodPrice)
-				if(lakewood.getRank()> ridgewood.getRank())
-					hotel = "Lakewood";
-				else
-					hotel = "Ridgewood";
-		}
+		if(lakewoodPrice < bridgePrice && lakewoodPrice < ridgewoodPrice) 
+			hotel ="Lakewood";
+					
+		else if(lakewoodPrice == bridgePrice)
+			if(lakewood.getRank() > bridgewood.getRank())
+				hotel = "Lakewood";
+			else
+				hotel = "Bridgewood";
+		
+		else if(lakewoodPrice == ridgewoodPrice)
+			if(lakewood.getRank() > ridgewood.getRank())
+				hotel = "Lakewood";
+			else
+				hotel = "Ridgewood";
+		
+		else if(bridgePrice == ridgewoodPrice)
+			if(bridgewood.getRank() > ridgewood.getRank())
+				hotel = "Bridgewood";
+			else
+				hotel = "Ridgewood";
 			
-		else if(ridgewoodPrice < bridgePrice) {
-			if(ridgewoodPrice == bridgePrice)
-				if(ridgewood.getRank() > bridgewood.getRank())
-					hotel = "Ridgewood";
-				else
-					hotel = "Bridgewood";
-		}	
+		else if(ridgewoodPrice < bridgePrice && ridgewoodPrice < lakewoodPrice) 
+			hotel = "Ridgewood";
 			
 		else
 			hotel = "Bridgewood";
@@ -74,22 +82,30 @@ public class HotelReservation {
 		int bridgePrice = Price(dayOne, dayTwo, dayThree, bridgewood.getRegularWeekdayPrice(), bridgewood.getRegularWeekendPrice());
 		int ridgewoodPrice = Price(dayOne, dayTwo, dayThree, ridgewood.getRegularWeekdayPrice(), ridgewood.getRegularWeekendPrice());
 		String hotel = "";
-		if(lakewoodPrice < bridgePrice){
-			if(lakewoodPrice == ridgewoodPrice)
-				if(lakewood.getRank()> ridgewood.getRank())
-					hotel = "Lakewood";
-				else
-					hotel = "Ridgewood";
-		}
+		if(lakewoodPrice < bridgePrice && lakewoodPrice < ridgewoodPrice)
+			hotel = "Lakewood";
+		
+		else if(lakewoodPrice == bridgePrice)
+			if(lakewood.getRank() > bridgewood.getRank())
+				hotel = "Lakewood";
+			else
+				hotel = "Bridgewood";
+		
+		else if(lakewoodPrice == ridgewoodPrice)
+			if(lakewood.getRank() > ridgewood.getRank())
+				hotel = "Lakewood";
+			else
+				hotel = "Ridgewood";
+		
+		else if(bridgePrice == ridgewoodPrice)
+			if(bridgewood.getRank() > ridgewood.getRank())
+				hotel = "Bridgewood";
+			else
+				hotel = "Ridgewood";
 			
-		else if(ridgewoodPrice < bridgePrice) {
-			if(ridgewoodPrice == bridgePrice)
-				if(ridgewood.getRank() > bridgewood.getRank())
-					hotel = "Ridgewood";
-				else
-					hotel = "Bridgewood";
-		}	
-			
+		else if(ridgewoodPrice < bridgePrice && ridgewoodPrice < lakewoodPrice) 
+			hotel = "Ridgewood";
+		
 		else
 			hotel = "Bridgewood";
 		
